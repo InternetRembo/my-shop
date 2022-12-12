@@ -4,15 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Container} from "@mui/material";
+import {Provider} from "react-redux";
+import {store} from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-      <Container maxWidth="lg">
+      <BrowserRouter>
+      <Provider store={store}>
+      <Container maxWidth="xl">
       <App />
       </Container>
+          </Provider>
+          </BrowserRouter>
   </React.StrictMode>
 );
 

@@ -1,15 +1,45 @@
+import {productActionTypes} from "../reducers/productsReducer";
 
 
+
+export type product = {
+    category: string,
+        description: string ,
+        title:string,
+        id: number,
+        image: string,
+        price: number,
+        rating: {
+            count: number,
+            rate: number
+        }
+}
 
 export type productStateTypes = {
-    name: string ;
+    products: product[] ;
+    selectedProductId: number;
+    selectedProductData: product
 };
 
 
-// export type setProductList = {
-//     type: tournamentTableActionTypes.SET_MATCH_RESULTS;
-//     payload: [1];
-// };
+export type setProductListAction = {
+    type: productActionTypes.GET_PRODUCTS;
+    payload: product[];
+};
+
+export type setSelectedProductId = {
+    type: productActionTypes.SET_PRODUCT_ID;
+    payload: number;
+};
+
+export type getSelectedProductData = {
+    type: productActionTypes.GET_PRODUCT_DATA;
+    payload: product;
+};
+
+export type ProductActionTypes = setProductListAction | setSelectedProductId | getSelectedProductData
 
 
-// export type LocationActions = SetMatchResults | s
+
+
+export type LocationActions = setProductListAction

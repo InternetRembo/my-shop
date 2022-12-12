@@ -1,12 +1,14 @@
-import React from 'react';
-import {Button, Paper, Theme} from "@mui/material";
+import React, {useState} from 'react';
+import {Button, Paper} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import Flex from "../helpers/Flex";
-import {myTheme} from "../../App";
+import Flex from "../../helpers/Flex";
 import FilterList from "./FilterList";
 
-const useStyles = makeStyles((myTheme: Theme) => createStyles({
+
+
+
+const useStyles = makeStyles(() => createStyles({
     paper:{
       maxHeight: '800px',
       width : '340px',
@@ -14,7 +16,10 @@ const useStyles = makeStyles((myTheme: Theme) => createStyles({
         top:'80px',
         left:'20px',
         textAlign:'center',
-        padding:'5px '
+        padding:'5px ',
+        margin : '0 50px 0 0'
+
+
     },
     button:{
         width: '400px',
@@ -24,18 +29,24 @@ const useStyles = makeStyles((myTheme: Theme) => createStyles({
 }));
 
 const FilterBlock = () => {
+
     const classes = useStyles()
+
+    const [showFilters , setShowFilters] = useState(true)
+
     return (
         <Paper className={classes.paper}  elevation={2} >
             <Flex justifyContent='space-around' alignItems='center' >
-                <Button className={classes.button} size='small' color={'secondary'} variant="contained">
+                <Button onClick={()=>{setShowFilters(!showFilters)}} className={classes.button} size='small' color={'secondary'} variant="contained">
+
                     <Typography variant="h5" component="p">
-                        Show filters
+                        { showFilters? 'Hide filters' : 'Show filters'}
                     </Typography>
                 </Button>
             </Flex>
 
-            <FilterList/>
+            { showFilters?  <FilterList/> : <div/> }
+
 
 
         </Paper >

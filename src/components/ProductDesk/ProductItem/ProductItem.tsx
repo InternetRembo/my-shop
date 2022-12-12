@@ -1,22 +1,27 @@
 import React from 'react';
 import Flex from "../../helpers/Flex";
-import {Box, Button, Card, CardContent, CardMedia, Grid, Rating, Stack, Theme} from "@mui/material";
+import {Box, Card, CardContent, CardMedia, Rating, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {createStyles, makeStyles} from "@mui/styles";
-import {myTheme} from "../../../App";
 
 
-const useStyles = makeStyles((myTheme: Theme) => createStyles({
+
+const useStyles = makeStyles(() => createStyles({
     card: {
         padding:'15px 20px' ,
         margin:'0 auto' ,
         width:'250px',
-        height:'350px',
+        height:'400px',
+        '&:hover': {
+           transform : 'scale(1.05)'
+
+        },
+
     },
     pricePill:{
-        width:'50px' ,
+        width:'80px' ,
         backgroundColor:'yellowgreen',
-        borderRadius:'100px',
+        borderRadius:'80px',
         textAlign:'center'
     },
     button:{
@@ -25,42 +30,62 @@ const useStyles = makeStyles((myTheme: Theme) => createStyles({
 
 }));
 
-const ProductItem = () => {
+type productItemProps = {
+    title: string,
+    image:string,
+    price:number,
+    category:string,
+    description:string,
+    rating: {
+        rate: number,
+        count:number
+    }
+}
+
+const ProductItem = ({title, image, price,  rating }:productItemProps) => {
 
     const classes = useStyles()
 
+    const shortTitle = ()=>{
+
+        if(title.length >= 40){
+           return title.split(' ' , 5).join(' ') + '...'
+        }
+
+        return title
+
+    }
+
+
+
     return (
 
-        <Card elevation={7}  className={classes.card} >
+        <Card onClick={()=>{alert('Слава Україні')}} elevation={7}  className={classes.card} >
             <CardMedia
-                sx={{borderRadius:'10px'}}
+                sx={{  borderRadius:'10px'}}
                 component="img"
                 height="60%"
-                image="https://agropolit.com/media/dossier/o-o-w-crop/00/00/4/lyashko-15299-16404.jpg"
+                image={image}
                 alt="product"
             />
             <CardContent >
 
 
-                <Stack sx={{textAlign:'center'}} spacing={1}>
+                <Stack sx={{ textAlign:'center'}} spacing={1}>
 
-                <Typography variant='h5' >
-                        Title
-                </Typography>
+               <div style={{height:'100px'}}>
+                   <Typography variant='h6' >
+                       {shortTitle()}
+                   </Typography>
+               </div>
 
                     <Flex  alignItems='center' justifyContent='space-around'>
-                        <Rating name="read-only" value={3} readOnly />
+                        <Rating name="read-only" value={rating.rate} readOnly />
                         <Box className={classes.pricePill}  >
                             <Typography variant='h6' >
-                                73$
+                                {price}$
                             </Typography>
                         </Box>
-                    </Flex>
-
-                    <Flex   alignItems='center' justifyContent='space-between'>
-                        <Button color={"secondary"} className={classes.button} variant="contained">Contained</Button>
-                        <Button color={"secondary"} className={classes.button} variant="contained">Contained</Button>
-
                     </Flex>
 
 

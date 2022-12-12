@@ -1,20 +1,19 @@
 import React from 'react';
-import {Box, Theme} from "@mui/material";
+import {Box} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {createStyles, makeStyles} from "@mui/styles";
-import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
-import Flex from "../helpers/Flex";
+import Flex from "../../helpers/Flex";
 import Typography from "@mui/material/Typography";
 
-const useStyles = makeStyles((myTheme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
 
     form:{
         width: '300px',

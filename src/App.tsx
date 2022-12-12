@@ -2,9 +2,10 @@ import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import {createTheme, ThemeProvider} from "@mui/material";
-import FilterBlock from "./components/FilterBlock/FilterBlock";
-import ProductItem from "./components/ProductDesk/ProductItem/ProductItem";
 import ProductDesk from "./components/ProductDesk/ProductDesk";
+import {Routes , Route} from  'react-router-dom'
+import ProductInfo from "./components/ProductInfo/ProductInfo";
+
 
 export const myTheme= createTheme({
     palette:{
@@ -28,8 +29,11 @@ function App() {
       <ThemeProvider theme={myTheme}>
       <div>
           <Header/>
-          <FilterBlock/>
-          <ProductDesk/>
+          <Routes>
+              <Route path={'/product/:id/'} element={<ProductInfo/>} />
+              <Route path={'/'} element={<ProductDesk/>} />
+
+          </Routes>
       </div>
       </ThemeProvider>
   );
