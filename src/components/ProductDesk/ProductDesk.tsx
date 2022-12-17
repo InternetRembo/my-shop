@@ -5,6 +5,7 @@ import {productApi} from "../../redux/api";
 import {getProductsAC} from "../../redux/reducers/productsReducer";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import FilterBlock from "./FilterBlock/FilterBlock";
+import Preloader from "../helpers/Preloader";
 
 const ProductDesk = () => {
 
@@ -22,7 +23,7 @@ const ProductDesk = () => {
              const data = await productApi.getProducts()
              console.log('data' , data)
             dispatch(getProductsAC(data))
-             // return
+
          }
 
            fetchData()
@@ -36,16 +37,16 @@ const ProductDesk = () => {
     return (
         <>
             <FilterBlock/>
+
     <Grid container  sx={{ padding: '0 50px' , marginTop:'60px' , minHeight:'1200px'}} spacing={1}>
-        {products.map((el)=>{
+        { products.length > 1 ? products.map((el)=>{
             return (
-
-
 
                 <Grid item  xs={12} sm={6} md={4} lg={3}>
                     <ProductItem category={el.category}
                                  title={el.title}
                                  price={el.price}
+                                 id={el.id}
                                  image={el.image}
                                  description={el.description}
                                  rating={el.rating}
@@ -54,7 +55,8 @@ const ProductDesk = () => {
 
             )
 
-        })}
+        }) : <Grid item  md={12} > <Preloader/> </Grid>
+             }
 
 
     </Grid>

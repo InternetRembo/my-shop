@@ -21,7 +21,7 @@ const defaultProductData = {
     category: "category",
     title:'title',
     description: "default",
-    id: 1,
+    id: 0,
     image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
     price: 1.0,
     rating: {

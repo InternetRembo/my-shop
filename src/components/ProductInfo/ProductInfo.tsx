@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {
-    Box, Button,
+    Box,
     Paper,
     Rating,
     Stack,
@@ -12,6 +12,7 @@ import {useParams} from "react-router-dom";
 import {getSelectedProductDataTC} from "../../redux/reducers/productsReducer";
 import {ProductActionTypes} from "../../redux/types/productTypes";
 import {Dispatch} from "redux";
+import Preloader from "../helpers/Preloader";
 
 const ProductInfo = () => {
 
@@ -23,7 +24,6 @@ const ProductInfo = () => {
 
     useEffect(() => {
 
-        console.log('id' , id)
 
         const fetchData = async (dispatch:Dispatch<ProductActionTypes>) => {
             return await dispatch(getSelectedProductDataTC(idToNum));
@@ -40,19 +40,27 @@ const ProductInfo = () => {
              'Since the description is too short, I will add this text here and duplicate it several times. Since the description is too short,' +
              ' I will add this text here and duplicate it several times.'
 
-    return (
-        <Paper sx={{width:'100%' , height:'100vh' , padding:'50px'}}>
 
-            <Button>a</Button>
-            <Stack direction="row"  spacing={'50px'}>
+          if(productData.id === 0){
+
+           return <Preloader/>
+
+         }
+
+    return (
+         <Paper sx={{width:'100%' , height:'100vh' , marginTop:'50px' , padding:'50px' , paddingTop:'50px'}}>
+
+            {/*<Button variant="outlined"  sx={{width:'100px' , height:'40px' , marginBottom:'20px'}} >a</Button>*/}
+            <Stack  direction="row"  spacing={'50px'}>
 
             <Image
                 src = {productData.image}
+                showLoading={false}
                 width={'400px'}
                 height={'400px'}
             />
 
-                <Box sx={{display: 'flex'  , justifyContent:'center' , width:'75%'}} >
+                <Box sx={{  backgroundColor:'lightGrey' , borderRadius:'40px', display: 'flex'  , justifyContent:'center' , width:'75%'}} >
                 <Stack alignItems={'start'} justifyContent='space-around' >
                     <Typography variant={'h3'}> {productData.title} </Typography>
 
@@ -73,9 +81,11 @@ const ProductInfo = () => {
 
             </Stack>
 
-            <Typography variant={'h6'} sx={{marginTop : '80px'}} >
+             <Box sx={{ backgroundColor:'lightGrey' , borderRadius:'40px' , padding:'10px' , marginTop : '50px' }}>
+            <Typography variant={'h6'}  >
                 {productData.description}{lorem}
             </Typography>
+             </Box>
 
         </Paper>
     );

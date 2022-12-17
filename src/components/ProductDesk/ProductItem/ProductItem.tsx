@@ -3,6 +3,7 @@ import Flex from "../../helpers/Flex";
 import {Box, Card, CardContent, CardMedia, Rating, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {createStyles, makeStyles} from "@mui/styles";
+import {redirect} from "react-router-dom";
 
 
 
@@ -32,6 +33,7 @@ const useStyles = makeStyles(() => createStyles({
 
 type productItemProps = {
     title: string,
+    id:number,
     image:string,
     price:number,
     category:string,
@@ -42,7 +44,7 @@ type productItemProps = {
     }
 }
 
-const ProductItem = ({title, image, price,  rating }:productItemProps) => {
+const ProductItem = ({title, image, price, id ,  rating }:productItemProps) => {
 
     const classes = useStyles()
 
@@ -60,7 +62,7 @@ const ProductItem = ({title, image, price,  rating }:productItemProps) => {
 
     return (
 
-        <Card onClick={()=>{alert('Слава Україні')}} elevation={7}  className={classes.card} >
+        <Card onClick={()=> redirect(`/product/12`)} elevation={7}  className={classes.card} >
             <CardMedia
                 sx={{  borderRadius:'10px'}}
                 component="img"

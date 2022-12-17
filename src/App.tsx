@@ -30,9 +30,8 @@ function App() {
       <div>
           <Header/>
           <Routes>
-              <Route path={'/product/:id/'} element={<ProductInfo/>} />
               <Route path={'/'} element={<ProductDesk/>} />
-
+              <Route path={'/product/:id/'} element={<ProductInfo/>} />
           </Routes>
       </div>
       </ThemeProvider>
