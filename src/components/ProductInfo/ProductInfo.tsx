@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+
 import {
     Box,
     Paper,
@@ -7,14 +8,46 @@ import {
     Typography
 } from "@mui/material";
 import Image from 'mui-image';
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {Dispatch} from "redux";
 import {useParams} from "react-router-dom";
+
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {getSelectedProductDataTC} from "../../redux/reducers/productsReducer";
 import {ProductActionTypes} from "../../redux/types/productTypes";
-import {Dispatch} from "redux";
 import Preloader from "../helpers/Preloader";
+import {createStyles, makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles(() => createStyles({
+
+    container: {
+        width:'100%',
+        height:'100vh',
+        marginTop:'50px',
+        padding:'50px',
+        paddingTop:'50px'
+    },
+
+    infoBlock:{
+        backgroundColor:'lightGrey',
+        borderRadius:'40px',
+        display: 'flex',
+        justifyContent:'center',
+        width:'75%',
+        padding: '20px'
+
+    },
+
+    descriptionBlock:{
+        backgroundColor:'lightGrey',
+        borderRadius:'40px',
+        padding:'10px',
+        marginTop :'50px',
+    }
+}));
 
 const ProductInfo = () => {
+
+    const classes = useStyles()
 
     const dispatch = useAppDispatch();
 
@@ -48,9 +81,8 @@ const ProductInfo = () => {
          }
 
     return (
-         <Paper sx={{width:'100%' , height:'100vh' , marginTop:'50px' , padding:'50px' , paddingTop:'50px'}}>
 
-            {/*<Button variant="outlined"  sx={{width:'100px' , height:'40px' , marginBottom:'20px'}} >a</Button>*/}
+         <Paper className={classes.container}>
             <Stack  direction="row"  spacing={'50px'}>
 
             <Image
@@ -60,7 +92,7 @@ const ProductInfo = () => {
                 height={'400px'}
             />
 
-                <Box sx={{  backgroundColor:'lightGrey' , borderRadius:'40px', display: 'flex'  , justifyContent:'center' , width:'75%'}} >
+                <Box className={classes.infoBlock} >
                 <Stack alignItems={'start'} justifyContent='space-around' >
                     <Typography variant={'h3'}> {productData.title} </Typography>
 
@@ -81,7 +113,7 @@ const ProductInfo = () => {
 
             </Stack>
 
-             <Box sx={{ backgroundColor:'lightGrey' , borderRadius:'40px' , padding:'10px' , marginTop : '50px' }}>
+             <Box className={classes.descriptionBlock}>
             <Typography variant={'h6'}  >
                 {productData.description}{lorem}
             </Typography>

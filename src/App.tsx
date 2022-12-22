@@ -32,6 +32,7 @@ function App() {
           <Routes>
               <Route path={'/'} element={<ProductDesk/>} />
               <Route path={'/product/:id/'} element={<ProductInfo/>} />
+              <Route path={'/a'} element={<div>weqwe</div>} />
           </Routes>
       </div>
       </ThemeProvider>

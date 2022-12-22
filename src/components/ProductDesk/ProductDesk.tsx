@@ -1,13 +1,26 @@
 import React, {useEffect} from 'react';
-import ProductItem from "./ProductItem/ProductItem";
+
+
 import Grid from "@mui/material/Grid";
 import {productApi} from "../../redux/api";
 import {getProductsAC} from "../../redux/reducers/productsReducer";
+
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import FilterBlock from "./FilterBlock/FilterBlock";
 import Preloader from "../helpers/Preloader";
+import ProductItem from "./ProductItem/ProductItem";
+import {createStyles, makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles(() => createStyles({
+    gridContainer:{
+        padding: '0 50px',
+        minHeight:'1200px',
+    },
+}));
 
 const ProductDesk = () => {
+
+    const classes = useStyles()
 
     const products = useAppSelector(
         (state) => state.productReducer.products
@@ -32,13 +45,12 @@ const ProductDesk = () => {
 
     } , [])
 
-    console.log('products : ' , products)
 
     return (
         <>
             <FilterBlock/>
 
-    <Grid container  sx={{ padding: '0 50px' , marginTop:'60px' , minHeight:'1200px'}} spacing={1}>
+    <Grid container className={classes.gridContainer} marginTop={'50px'}   spacing={1}>
         { products.length > 1 ? products.map((el)=>{
             return (
 

@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Button, Paper} from "@mui/material";
+
+import {Button, Paper, Stack} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import Flex from "../../helpers/Flex";
+
 import FilterList from "./FilterList";
-
-
 
 
 const useStyles = makeStyles(() => createStyles({
@@ -22,7 +21,7 @@ const useStyles = makeStyles(() => createStyles({
 
     },
     button:{
-        width: '400px',
+        width: '100%',
         height: '90%',
     },
 
@@ -36,14 +35,14 @@ const FilterBlock = () => {
 
     return (
         <Paper className={classes.paper}  elevation={2} >
-            <Flex justifyContent='space-around' alignItems='center' >
+            <Stack justifyContent='space-around' alignItems='center' >
                 <Button onClick={()=>{setShowFilters(!showFilters)}} className={classes.button} size='small' color={'secondary'} variant="contained">
 
                     <Typography variant="h5" component="p">
                         { showFilters? 'Hide filters' : 'Show filters'}
                     </Typography>
                 </Button>
-            </Flex>
+            </Stack>
 
             { showFilters?  <FilterList/> : <div/> }
 

@@ -1,14 +1,15 @@
 import React from 'react';
+
 import {
     AppBar,
     Box,
-    InputBase,
+    InputBase, Stack,
     Theme,
     Typography
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {createStyles, makeStyles} from "@mui/styles";
-import Flex from "../helpers/Flex";
+
 
 
 const useStyles = makeStyles((myTheme: Theme) => createStyles({
@@ -39,7 +40,7 @@ const Header = () => {
                     Big Baza Shop
                 </Typography>
                 <div className={classes.input} >
-                <Flex className={classes.input} alignItems='center' flexDirection='row' >
+                <Stack className={classes.input} alignItems='center' flexDirection='row' >
                     <div>
                         <SearchIcon />
                     </div>
@@ -48,7 +49,7 @@ const Header = () => {
                         placeholder="Find what you are looking for"
                         inputProps={{ 'aria-label': 'search' }}
                     />
-                </Flex>
+                </Stack>
                 </div>
             </Box>
         </AppBar>

@@ -1,13 +1,14 @@
 import React from 'react';
-import Flex from "../../helpers/Flex";
+
 import {Box, Card, CardContent, CardMedia, Rating, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {createStyles, makeStyles} from "@mui/styles";
-import {redirect} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 
 const useStyles = makeStyles(() => createStyles({
+
     card: {
         padding:'15px 20px' ,
         margin:'0 auto' ,
@@ -15,20 +16,19 @@ const useStyles = makeStyles(() => createStyles({
         height:'400px',
         '&:hover': {
            transform : 'scale(1.05)'
-
         },
-
     },
+
     pricePill:{
         width:'80px' ,
         backgroundColor:'yellowgreen',
         borderRadius:'80px',
         textAlign:'center'
     },
+
     button:{
         width:'100px',
     }
-
 }));
 
 type productItemProps = {
@@ -48,6 +48,8 @@ const ProductItem = ({title, image, price, id ,  rating }:productItemProps) => {
 
     const classes = useStyles()
 
+    const navigate = useNavigate()
+
     const shortTitle = ()=>{
 
         if(title.length >= 40){
@@ -58,11 +60,14 @@ const ProductItem = ({title, image, price, id ,  rating }:productItemProps) => {
 
     }
 
-
-
     return (
 
-        <Card onClick={()=> redirect(`/product/12`)} elevation={7}  className={classes.card} >
+        <Card onClick={()=>{
+
+            navigate(`/product/${id}`)
+
+        }}
+              elevation={7}  className={classes.card} >
             <CardMedia
                 sx={{  borderRadius:'10px'}}
                 component="img"
@@ -81,14 +86,14 @@ const ProductItem = ({title, image, price, id ,  rating }:productItemProps) => {
                    </Typography>
                </div>
 
-                    <Flex  alignItems='center' justifyContent='space-around'>
+                    <Stack direction='row'  alignItems='center' justifyContent='space-around'>
                         <Rating name="read-only" value={rating.rate} readOnly />
                         <Box className={classes.pricePill}  >
                             <Typography variant='h6' >
                                 {price}$
                             </Typography>
                         </Box>
-                    </Flex>
+                    </Stack>
 
 
                 </Stack>

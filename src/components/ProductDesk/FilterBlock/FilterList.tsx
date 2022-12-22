@@ -1,5 +1,6 @@
 import React from 'react';
-import {Box} from "@mui/material";
+
+import {Box, Stack} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -10,7 +11,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
-import Flex from "../../helpers/Flex";
 import Typography from "@mui/material/Typography";
 
 const useStyles = makeStyles(() => createStyles({
@@ -37,7 +37,6 @@ const FilterList = () => {
                     id="demo-simple-select-helper"
                     value={'age'}
                     label="Age"
-                    //onChange={handleChange}
                 >
                     <MenuItem value="">
                         <em>None</em>
@@ -45,6 +44,7 @@ const FilterList = () => {
                     <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
+
                 </Select>
             </FormControl>
 
@@ -63,10 +63,10 @@ const FilterList = () => {
                 <FormControlLabel control={<Checkbox />} label="In stock only" />
 
                 <Typography> Price range </Typography >
-                <Flex>
+                <Stack direction={"row"}>
                     <TextField/>
                     <TextField/>
-                </Flex>
+                </Stack>
 
             </FormControl>
 
