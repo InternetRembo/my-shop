@@ -54,8 +54,9 @@ const ProductDesk = () => {
         { products.length > 1 ? products.map((el)=>{
             return (
 
-                <Grid item  xs={12} sm={6} md={4} lg={3}>
-                    <ProductItem category={el.category}
+                <Grid  key={el.id} item  xs={12} sm={6} md={4} lg={3}>
+                    <ProductItem
+                                 category={el.category}
                                  title={el.title}
                                  price={el.price}
                                  id={el.id}

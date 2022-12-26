@@ -69,7 +69,7 @@ const ProductItem = ({title, image, price, id ,  rating }:productItemProps) => {
         }}
               elevation={7}  className={classes.card} >
             <CardMedia
-                sx={{  borderRadius:'10px'}}
+                sx={{  borderRadius:'10px' , objectFit: "contain" }}
                 component="img"
                 height="60%"
                 image={image}

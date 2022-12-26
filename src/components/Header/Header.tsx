@@ -9,13 +9,14 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {createStyles, makeStyles} from "@mui/styles";
+import {useNavigate} from "react-router-dom";
 
 
 
 const useStyles = makeStyles((myTheme: Theme) => createStyles({
     header: {
-        borderBottom: `3px solid ${myTheme.palette.secondary.dark}`,
-        backgroundColor:`${myTheme.palette.secondary.main}`,
+        borderBottom: `3px solid ${myTheme.palette.primary.dark}`,
+        backgroundColor:`${myTheme.palette.primary.main}`,
         height:'50px'
     },
     input:{
@@ -32,11 +33,14 @@ const useStyles = makeStyles((myTheme: Theme) => createStyles({
 }));
 
 const Header = () => {
+
     const classes = useStyles()
+    const navigate = useNavigate()
+
     return (
         <AppBar elevation={0}  position="fixed">
-            <Box className={classes.header}  padding='0 200px' display='flex' alignItems="center" justifyContent="space-between">
-                <Typography className={classes.title}  variant="h4" noWrap>
+            <Box onClick={()=>{navigate(`/`)}} className={classes.header}  padding='0 200px' display='flex' alignItems="center" justifyContent="space-between">
+                <Typography  className={classes.title}  variant="h4" noWrap>
                     Big Baza Shop
                 </Typography>
                 <div className={classes.input} >

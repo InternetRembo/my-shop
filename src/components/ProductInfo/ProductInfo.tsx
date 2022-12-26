@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {
-    Box,
+    Box, Button,
     Paper,
     Rating,
     Stack,
@@ -16,6 +16,7 @@ import {getSelectedProductDataTC} from "../../redux/reducers/productsReducer";
 import {ProductActionTypes} from "../../redux/types/productTypes";
 import Preloader from "../helpers/Preloader";
 import {createStyles, makeStyles} from "@mui/styles";
+import {myTheme} from "../../App";
 
 const useStyles = makeStyles(() => createStyles({
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => createStyles({
     },
 
     infoBlock:{
-        backgroundColor:'lightGrey',
+        backgroundColor:`${myTheme.palette.secondary.dark}`,
         borderRadius:'40px',
         display: 'flex',
         justifyContent:'center',
@@ -38,7 +39,7 @@ const useStyles = makeStyles(() => createStyles({
     },
 
     descriptionBlock:{
-        backgroundColor:'lightGrey',
+        backgroundColor:`${myTheme.palette.secondary.dark}`,
         borderRadius:'40px',
         padding:'10px',
         marginTop :'50px',
@@ -85,12 +86,19 @@ const ProductInfo = () => {
          <Paper className={classes.container}>
             <Stack  direction="row"  spacing={'50px'}>
 
-            <Image
-                src = {productData.image}
-                showLoading={false}
-                width={'400px'}
-                height={'400px'}
-            />
+            <Stack spacing={'50px'} alignItems='center' >
+                <Image
+                    fit={'contain'}
+                    src = {productData.image}
+                    showLoading={false}
+                    width={'400px'}
+                    height={'400px'}
+                />
+                <Stack direction="row" spacing={2}>
+                    <Button sx={{ width:'150px' , height:'40px'}} variant="contained">By now!</Button>
+                    <Button sx={{ width:'150px' , height:'40px'}} variant="contained"> Add to basket </Button>
+                </Stack>
+            </Stack>
 
                 <Box className={classes.infoBlock} >
                 <Stack alignItems={'start'} justifyContent='space-around' >

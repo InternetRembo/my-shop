@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Header from "./components/Header/Header";
 import {createTheme, ThemeProvider} from "@mui/material";
 import ProductDesk from "./components/ProductDesk/ProductDesk";
@@ -10,13 +9,13 @@ import ProductInfo from "./components/ProductInfo/ProductInfo";
 export const myTheme= createTheme({
     palette:{
         primary:{
-            main:'#e3f2fd',
-            dark:'#ddedfc',
+            main:'#fca7c2',
+            dark:'#fc588c',
+            light:'#f571c8',
         },
         secondary:{
-            main:'#fca7c2',
-            dark:'#ff4081',
-            light:'#f571c8',
+            main:'#e3f2fd',
+            dark:'#f1f9fd',
         },
 
 

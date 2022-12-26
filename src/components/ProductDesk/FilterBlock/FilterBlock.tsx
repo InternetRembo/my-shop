@@ -36,7 +36,7 @@ const FilterBlock = () => {
     return (
         <Paper className={classes.paper}  elevation={2} >
             <Stack justifyContent='space-around' alignItems='center' >
-                <Button onClick={()=>{setShowFilters(!showFilters)}} className={classes.button} size='small' color={'secondary'} variant="contained">
+                <Button onClick={()=>{setShowFilters(!showFilters)}} className={classes.button} size='small' color={'primary'} variant="contained">
 
                     <Typography variant="h5" component="p">
                         { showFilters? 'Hide filters' : 'Show filters'}

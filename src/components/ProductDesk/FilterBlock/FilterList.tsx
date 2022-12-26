@@ -20,8 +20,11 @@ const useStyles = makeStyles(() => createStyles({
         height: '90%',
     },
     wrapperBox:{
-      padding : '20px 10px'
+      padding : '20px 10px',
     },
+    priceInput:{
+        width: '240px',
+    }
 
 }));
 
@@ -56,6 +59,7 @@ const FilterList = () => {
                     name="radio-buttons-group"
                 >
                     <FormControlLabel value="no_sorting" control={<Radio />} label="No sorting" />
+                    <FormControlLabel value="rating" control={<Radio />} label="Rating" />
                     <FormControlLabel value="cheap_at_first" control={<Radio />} label="Cheap at first" />
                     <FormControlLabel value="expensive_at_first" control={<Radio />} label="Expensive at first" />
                 </RadioGroup>
@@ -63,9 +67,9 @@ const FilterList = () => {
                 <FormControlLabel control={<Checkbox />} label="In stock only" />
 
                 <Typography> Price range </Typography >
-                <Stack direction={"row"}>
-                    <TextField/>
-                    <TextField/>
+                <Stack className={classes.priceInput}   spacing={1} direction={"row"}>
+                    <TextField  />
+                    <TextField  />
                 </Stack>
 
             </FormControl>
