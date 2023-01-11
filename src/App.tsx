@@ -11,11 +11,11 @@ export const myTheme= createTheme({
         primary:{
             main:'#fca7c2',
             dark:'#fc588c',
-            light:'#f571c8',
+            light:'#ffbcee',
         },
         secondary:{
-            main:'#e3f2fd',
-            dark:'#f1f9fd',
+            main:'#ffccf2',
+            dark:'#ffccf2',
         },
 
 

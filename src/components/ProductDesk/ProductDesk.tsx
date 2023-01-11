@@ -10,6 +10,7 @@ import FilterBlock from "./FilterBlock/FilterBlock";
 import Preloader from "../helpers/Preloader";
 import ProductItem from "./ProductItem/ProductItem";
 import {createStyles, makeStyles} from "@mui/styles";
+import {Pagination, Stack} from "@mui/material";
 
 const useStyles = makeStyles(() => createStyles({
     gridContainer:{
@@ -25,6 +26,9 @@ const ProductDesk = () => {
     const products = useAppSelector(
         (state) => state.productReducer.products
     );
+    const filterParams = useAppSelector(
+        (state) => state.productReducer.filterParams
+    );
 
 
     const dispatch = useAppDispatch()
@@ -38,11 +42,7 @@ const ProductDesk = () => {
             dispatch(getProductsAC(data))
 
          }
-
            fetchData()
-
-
-
     } , [])
 
 
@@ -52,27 +52,34 @@ const ProductDesk = () => {
 
     <Grid container className={classes.gridContainer} marginTop={'50px'}   spacing={1}>
         { products.length > 1 ? products.map((el)=>{
-            return (
+          if(el.price >= filterParams.priceMin && el.price <= filterParams.priceMax) {
+              return (
 
-                <Grid  key={el.id} item  xs={12} sm={6} md={4} lg={3}>
-                    <ProductItem
-                                 category={el.category}
-                                 title={el.title}
-                                 price={el.price}
-                                 id={el.id}
-                                 image={el.image}
-                                 description={el.description}
-                                 rating={el.rating}
-                                   />
-                </Grid>
+                  <Grid  key={el.id} item  xs={12} sm={6} md={4} lg={3}>
+                      <ProductItem
+                          category={el.category}
+                          title={el.title}
+                          price={el.price}
+                          id={el.id}
+                          image={el.image}
+                          description={el.description}
+                          rating={el.rating}
+                      />
+                  </Grid>
 
-            )
+              )
+          }
 
         }) : <Grid item  md={12} > <Preloader/> </Grid>
              }
 
 
     </Grid>
+
+            <Stack alignItems='center' >
+                <Pagination sx={{  marginTop:'50px' , marginBottom:'50px' }} count={10} color="primary" size='large' />
+            </Stack>
+
         </>
 
     );

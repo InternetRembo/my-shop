@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Button, Paper, Stack} from "@mui/material";
 import {createStyles, makeStyles} from "@mui/styles";
@@ -29,9 +29,12 @@ const useStyles = makeStyles(() => createStyles({
 
 const FilterBlock = () => {
 
+    useEffect(()=>{} , [])
+
     const classes = useStyles()
 
     const [showFilters , setShowFilters] = useState(true)
+
 
     return (
         <Paper className={classes.paper}  elevation={2} >

@@ -1,21 +1,13 @@
 import {
+    FilterFormValues,
     getSelectedProductData,
     product, ProductActionTypes,
-    productStateTypes,
+    productStateTypes, setFilterParams, setNewCurrentPage,
     setProductListAction,
     setSelectedProductId
 } from "../types/productTypes";
 import {productApi} from "../api";
 import {Dispatch} from "redux";
-
-
-
-export enum productActionTypes {
-
-    GET_PRODUCTS = "GET_PRODUCTS",
-    SET_PRODUCT_ID = "SET_PRODUCT_ID",
-    GET_PRODUCT_DATA = "GET_PRODUCT_DATA"
-}
 
 const defaultProductData = {
     category: "category",
@@ -31,10 +23,27 @@ const defaultProductData = {
 
 }
 
+export enum productActionTypes {
+
+    GET_PRODUCTS = "GET_PRODUCTS",
+    SET_PRODUCT_ID = "SET_PRODUCT_ID",
+    GET_PRODUCT_DATA = "GET_PRODUCT_DATA",
+    SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    SET_FILTER_PARAMS = 'SET_FILTER_PARAMS'
+}
+
 let initialState: productStateTypes = {
     products: [defaultProductData],
     selectedProductId : 0 ,
     selectedProductData: defaultProductData,
+    currentPage: 1,
+    totalProductCount: 0,
+    filterParams: {
+        category:'all',
+        sorting:'no_sorting',
+        priceMin: 0,
+        priceMax:Infinity,
+    },
 }
 
 export  const productReducer = (state :productStateTypes = initialState , action: any):productStateTypes => {
@@ -47,6 +56,12 @@ export  const productReducer = (state :productStateTypes = initialState , action
         }
         case productActionTypes.GET_PRODUCT_DATA: {
             return { ...state, selectedProductData: action.payload };
+        }
+        case productActionTypes.SET_CURRENT_PAGE: {
+            return { ...state, currentPage: action.payload };
+        }
+        case productActionTypes.SET_FILTER_PARAMS: {
+            return { ...state, filterParams: action.payload };
         }
         default:
             return state;
@@ -67,13 +82,15 @@ export const getProductsAC = (payload: product[]): setProductListAction => ({
     payload,
     type: productActionTypes.GET_PRODUCTS,
 });
+export const setCurrentPageAC = (payload: number): setNewCurrentPage => ({
+    payload,
+    type: productActionTypes.SET_CURRENT_PAGE,
+});
+export const setFilterParamsAC = (payload: FilterFormValues): setFilterParams => ({
+    payload,
+    type: productActionTypes.SET_FILTER_PARAMS,
+});
 
-
-
-// export const GetArticlesParamsTC = (id) => async (dispatch) => {
-//     let articlesParams = await MainAPI.paramsById(id);
-//     dispatch(GetArticlesParamsAC(articlesParams));
-// };
 
 export const getSelectedProductDataTC = (id:number) : any => async (dispatch:Dispatch<ProductActionTypes>) => {
     let productData = await productApi.getDataByID(id);

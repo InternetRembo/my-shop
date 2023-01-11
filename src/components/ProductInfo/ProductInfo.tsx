@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => createStyles({
     },
 
     infoBlock:{
-        backgroundColor:`${myTheme.palette.secondary.dark}`,
+        backgroundColor:`${myTheme.palette.primary.light}`,
         borderRadius:'40px',
         display: 'flex',
         justifyContent:'center',
@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => createStyles({
     },
 
     descriptionBlock:{
-        backgroundColor:`${myTheme.palette.secondary.dark}`,
+        backgroundColor:`${myTheme.palette.primary.light}`,
         borderRadius:'40px',
         padding:'10px',
         marginTop :'50px',
