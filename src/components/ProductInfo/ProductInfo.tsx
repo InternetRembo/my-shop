@@ -18,6 +18,7 @@ import Preloader from "../helpers/Preloader";
 import {createStyles, makeStyles} from "@mui/styles";
 import {myTheme} from "../../App";
 
+
 const useStyles = makeStyles(() => createStyles({
 
     container: {
@@ -58,12 +59,12 @@ const ProductInfo = () => {
 
     useEffect(() => {
 
+            const fetchData = async (dispatch:Dispatch<ProductActionTypes>) => {
+                return await dispatch(getSelectedProductDataTC(idToNum));
 
-        const fetchData = async (dispatch:Dispatch<ProductActionTypes>) => {
-            return await dispatch(getSelectedProductDataTC(idToNum));
+            };
+            fetchData(dispatch);
 
-        };
-        fetchData(dispatch);
     }, []);
 
          const productData =  useAppSelector((state) => state.productReducer.selectedProductData)
@@ -75,11 +76,9 @@ const ProductInfo = () => {
              ' I will add this text here and duplicate it several times.'
 
 
-          if(productData.id === 0){
 
-           return <Preloader/>
+           if(productData.id === 0){return <Preloader/>}
 
-         }
 
     return (
 

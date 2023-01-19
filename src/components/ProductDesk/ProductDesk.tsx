@@ -1,88 +1,87 @@
-import React, {useEffect} from 'react';
-
+import React, { useEffect } from "react";
 
 import Grid from "@mui/material/Grid";
-import {productApi} from "../../redux/api";
-import {getProductsAC} from "../../redux/reducers/productsReducer";
+import { productApi } from "../../redux/api";
+import { getProductsAC } from "../../redux/reducers/productsReducer";
 
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import FilterBlock from "./FilterBlock/FilterBlock";
 import Preloader from "../helpers/Preloader";
 import ProductItem from "./ProductItem/ProductItem";
-import {createStyles, makeStyles} from "@mui/styles";
-import {Pagination, Stack} from "@mui/material";
+import { createStyles, makeStyles } from "@mui/styles";
+import createFakeProducts from "../../FakeProducts";
 
-const useStyles = makeStyles(() => createStyles({
-    gridContainer:{
-        padding: '0 50px',
-        minHeight:'1200px',
+const useStyles = makeStyles(() =>
+  createStyles({
+    gridContainer: {
+      padding: "0 50px",
+      minHeight: "1200px",
     },
-}));
+  })
+);
 
 const ProductDesk = () => {
+  const classes = useStyles();
 
-    const classes = useStyles()
+  const products = useAppSelector((state) => state.productReducer.products);
+  const filterParams = useAppSelector(
+    (state) => state.productReducer.filterParams
+  );
 
-    const products = useAppSelector(
-        (state) => state.productReducer.products
-    );
-    const filterParams = useAppSelector(
-        (state) => state.productReducer.filterParams
-    );
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await productApi.getProducts();
+      console.log("data", data);
+      dispatch(getProductsAC([...data, ...createFakeProducts()]));
+    };
+    fetchData();
+  }, []);
 
-    const dispatch = useAppDispatch()
+  console.log(products);
 
+  return (
+    <>
+      <FilterBlock />
 
-    useEffect( () => {
-
-         const fetchData = async ()=> {
-             const data = await productApi.getProducts()
-             console.log('data' , data)
-            dispatch(getProductsAC(data))
-
-         }
-           fetchData()
-    } , [])
-
-
-    return (
-        <>
-            <FilterBlock/>
-
-    <Grid container className={classes.gridContainer} marginTop={'50px'}   spacing={1}>
-        { products.length > 1 ? products.map((el)=>{
-          if(el.price >= filterParams.priceMin && el.price <= filterParams.priceMax) {
+      <Grid
+        container
+        className={classes.gridContainer}
+        marginTop={"50px"}
+        spacing={1}
+      >
+        {products.length > 1 ? (
+          products.map((el) => {
+            if (
+              el.price >= filterParams.priceMin &&
+              el.price <= filterParams.priceMax
+            ) {
               return (
-
-                  <Grid  key={el.id} item  xs={12} sm={6} md={4} lg={3}>
-                      <ProductItem
-                          category={el.category}
-                          title={el.title}
-                          price={el.price}
-                          id={el.id}
-                          image={el.image}
-                          description={el.description}
-                          rating={el.rating}
-                      />
-                  </Grid>
-
-              )
-          }
-
-        }) : <Grid item  md={12} > <Preloader/> </Grid>
-             }
-
-
-    </Grid>
-
-            <Stack alignItems='center' >
-                <Pagination sx={{  marginTop:'50px' , marginBottom:'50px' }} count={10} color="primary" size='large' />
-            </Stack>
-
-        </>
-
-    );
+                <Grid key={el.id} item xs={12} sm={6} md={4} lg={3}>
+                  <ProductItem
+                    category={el.category}
+                    title={el.title}
+                    price={el.price}
+                    id={el.id}
+                    image={el.image}
+                    description={el.description}
+                    rating={el.rating}
+                    fake={el.fake ? el.fake : false}
+                  />
+                </Grid>
+              );
+            }
+          })
+        ) : (
+          <Grid item md={12}>
+            {" "}
+            <Preloader />{" "}
+          </Grid>
+        )}
+      </Grid>
+    </>
+  );
 };
 
 export default ProductDesk;

@@ -12,7 +12,8 @@ export type product = {
         rating: {
             count: number,
             rate: number
-        }
+        },
+        fake? : boolean
 }
 
 export type FilterFormValues = {
