@@ -11,6 +11,8 @@ import ProductItem from "./ProductItem/ProductItem";
 import { createStyles, makeStyles } from "@mui/styles";
 import createFakeProducts from "../../FakeProducts";
 
+import { product } from "../../redux/types/productTypes";
+
 const useStyles = makeStyles(() =>
   createStyles({
     gridContainer: {
@@ -33,13 +35,43 @@ const ProductDesk = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await productApi.getProducts();
-      console.log("data", data);
       dispatch(getProductsAC([...data, ...createFakeProducts()]));
     };
     fetchData();
   }, []);
 
-  console.log(products);
+  const productsFiltrationAndSortig = (products: product[]) => {
+    let filteredAndSortedProducts = products
+      .filter((el) => {
+        return (
+          (el.category === filterParams.category ||
+            filterParams.category === "all") &&
+          el.price >= filterParams.priceMin &&
+          el.price <= filterParams.priceMax
+        );
+      })
+      .sort((a, b) => {
+        switch (filterParams.sorting) {
+          case "rating":
+            return b.rating.rate - a.rating.rate;
+
+          case "cheap_first":
+            return a.price - b.price;
+
+          case "expensive_first":
+            return b.price - a.price;
+
+          default:
+            return 0;
+        }
+      });
+
+    if (filterParams.noFakeOnly === true) {
+      return filteredAndSortedProducts.filter((el) => !el.fake);
+    }
+
+    return filteredAndSortedProducts;
+  };
 
   return (
     <>
@@ -52,31 +84,25 @@ const ProductDesk = () => {
         spacing={1}
       >
         {products.length > 1 ? (
-          products.map((el) => {
-            if (
-              el.price >= filterParams.priceMin &&
-              el.price <= filterParams.priceMax
-            ) {
-              return (
-                <Grid key={el.id} item xs={12} sm={6} md={4} lg={3}>
-                  <ProductItem
-                    category={el.category}
-                    title={el.title}
-                    price={el.price}
-                    id={el.id}
-                    image={el.image}
-                    description={el.description}
-                    rating={el.rating}
-                    fake={el.fake ? el.fake : false}
-                  />
-                </Grid>
-              );
-            }
+          productsFiltrationAndSortig(products).map((el: product) => {
+            return (
+              <Grid key={el.id} item xs={12} sm={6} md={4} lg={3}>
+                <ProductItem
+                  category={el.category}
+                  title={el.title}
+                  price={el.price}
+                  id={el.id}
+                  image={el.image}
+                  description={el.description}
+                  rating={el.rating}
+                  fake={el.fake ? el.fake : false}
+                />
+              </Grid>
+            );
           })
         ) : (
           <Grid item md={12}>
-            {" "}
-            <Preloader />{" "}
+            <Preloader />
           </Grid>
         )}
       </Grid>
