@@ -7,6 +7,7 @@ import {
   setFilterParams,
   setNewCurrentPage,
   setProductListAction,
+  setSearchQuery,
   setSelectedProductId,
 } from "../types/productTypes";
 import { productApi } from "../api";
@@ -31,6 +32,7 @@ export enum productActionTypes {
   GET_PRODUCT_DATA = "GET_PRODUCT_DATA",
   SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
   SET_FILTER_PARAMS = "SET_FILTER_PARAMS",
+  SET_SEARCH_QUERY = "SET_SEARCH_QUERY",
 }
 
 let initialState: productStateTypes = {
@@ -46,6 +48,7 @@ let initialState: productStateTypes = {
     priceMax: Infinity,
     noFakeOnly: false,
   },
+  searchQuery: "",
 };
 
 export const productReducer = (
@@ -67,6 +70,9 @@ export const productReducer = (
     }
     case productActionTypes.SET_FILTER_PARAMS: {
       return { ...state, filterParams: action.payload };
+    }
+    case productActionTypes.SET_SEARCH_QUERY: {
+      return { ...state, searchQuery: action.payload };
     }
     default:
       return state;
@@ -100,6 +106,10 @@ export const setFilterParamsAC = (
 ): setFilterParams => ({
   payload,
   type: productActionTypes.SET_FILTER_PARAMS,
+});
+export const setSearchQueryAC = (payload: string): setSearchQuery => ({
+  payload,
+  type: productActionTypes.SET_SEARCH_QUERY,
 });
 
 export const getSelectedProductDataTC =

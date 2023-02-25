@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { createStyles, makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 
+
 const useStyles = makeStyles(() =>
   createStyles({
     card: {
@@ -22,6 +23,9 @@ const useStyles = makeStyles(() =>
       "&:hover": {
         transform: "scale(1.05)",
       },
+    },
+    fake: {
+      opacity: "70%",
     },
 
     pricePill: {
@@ -67,17 +71,18 @@ const ProductItem = ({
     if (title.length >= 40) {
       return title.split(" ", 5).join(" ") + "...";
     }
-
     return title;
   };
 
   return (
     <Card
       onClick={() => {
-        fake ? alert("This product is fake") : navigate(`/product/${id}`);
+        if (!fake) {
+          navigate(`/product/${id}`);
+        }
       }}
       elevation={7}
-      className={classes.card}
+      className={fake ? `${classes.card} ${classes.fake}` : classes.card}
     >
       <CardMedia
         sx={{ borderRadius: "10px", objectFit: "contain" }}

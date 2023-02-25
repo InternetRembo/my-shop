@@ -26,6 +26,9 @@ const ProductDesk = () => {
   const classes = useStyles();
 
   const products = useAppSelector((state) => state.productReducer.products);
+  const searchQuery = useAppSelector(
+    (state) => state.productReducer.searchQuery
+  );
   const filterParams = useAppSelector(
     (state) => state.productReducer.filterParams
   );
@@ -47,7 +50,9 @@ const ProductDesk = () => {
           (el.category === filterParams.category ||
             filterParams.category === "all") &&
           el.price >= filterParams.priceMin &&
-          el.price <= filterParams.priceMax
+          el.price <= filterParams.priceMax &&
+          (el.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            searchQuery === "")
         );
       })
       .sort((a, b) => {

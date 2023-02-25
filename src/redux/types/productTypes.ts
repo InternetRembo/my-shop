@@ -29,6 +29,7 @@ export type productStateTypes = {
   currentPage: number;
   totalProductCount: number;
   filterParams: FilterFormValues;
+  searchQuery: string;
 };
 
 export type setProductListAction = {
@@ -54,12 +55,17 @@ export type setFilterParams = {
   type: productActionTypes.SET_FILTER_PARAMS;
   payload: FilterFormValues;
 };
+export type setSearchQuery = {
+  type: productActionTypes.SET_SEARCH_QUERY;
+  payload: string;
+};
 
 export type ProductActionTypes =
   | setProductListAction
   | setSelectedProductId
   | getSelectedProductData
   | setNewCurrentPage
-  | setFilterParams;
+  | setFilterParams
+  | setSearchQuery;
 
 export type LocationActions = setProductListAction;
