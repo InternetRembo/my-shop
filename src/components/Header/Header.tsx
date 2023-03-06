@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 
 import {
   AppBar,
@@ -70,6 +70,12 @@ const Header = () => {
             <InputBase
               value={searchQuery}
               onChange={(e) => {
+                if (
+                  e.target.value.slice(-1) == " " &&
+                  searchQuery.slice(-1) == " "
+                ) {
+                  return;
+                }
                 dispatch(setSearchQueryAC(e.target.value));
               }}
               fullWidth

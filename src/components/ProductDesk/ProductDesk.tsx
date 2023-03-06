@@ -12,6 +12,8 @@ import { createStyles, makeStyles } from "@mui/styles";
 import createFakeProducts from "../../FakeProducts";
 
 import { product } from "../../redux/types/productTypes";
+import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
+import ShoppingBasketModal from "../ShoppingBasket/ShoppingBasketModal/ShoppingBasketModal";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -80,6 +82,10 @@ const ProductDesk = () => {
 
   return (
     <>
+      <ShoppingBasket />
+
+      <ShoppingBasketModal />
+
       <FilterBlock />
 
       <Grid
