@@ -17,12 +17,19 @@ const useStyles = makeStyles((myTheme: Theme) =>
   })
 );
 
-const ShoppingBasket = () => {
+type ShoppingBasketButtonProps = {
+  setShowModal: (value: boolean) => void;
+};
+
+const ShoppingBasketButton: React.FC<ShoppingBasketButtonProps> = ({
+  setShowModal,
+}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.button}>
       <Button
+        onClick={() => setShowModal(true)}
         sx={{ borderRadius: "400px", height: "100%" }} // потрібно переробити і дізнатись чому через класи не працює
         variant={"contained"}
         fullWidth
@@ -36,4 +43,4 @@ const ShoppingBasket = () => {
   );
 };
 
-export default ShoppingBasket;
+export default ShoppingBasketButton;

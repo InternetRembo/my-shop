@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Grid from "@mui/material/Grid";
 import { productApi } from "../../redux/api";
@@ -12,8 +12,9 @@ import { createStyles, makeStyles } from "@mui/styles";
 import createFakeProducts from "../../FakeProducts";
 
 import { product } from "../../redux/types/productTypes";
-import ShoppingBasket from "../ShoppingBasket/ShoppingBasket";
+import ShoppingBasketButton from "../ShoppingBasket/ShoppingBasketButton";
 import ShoppingBasketModal from "../ShoppingBasket/ShoppingBasketModal/ShoppingBasketModal";
+import CustomAlert from "../Header/CustomAlert";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,6 +35,10 @@ const ProductDesk = () => {
   const filterParams = useAppSelector(
     (state) => state.productReducer.filterParams
   );
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [openAlert, setOpenAlert] = React.useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -82,9 +87,11 @@ const ProductDesk = () => {
 
   return (
     <>
-      <ShoppingBasket />
+      <ShoppingBasketButton setShowModal={setShowModal} />
 
-      <ShoppingBasketModal />
+      {openAlert ? <CustomAlert setOpenAlert={setOpenAlert} /> : null}
+
+      {showModal ? <ShoppingBasketModal setShowModal={setShowModal} /> : null}
 
       <FilterBlock />
 
@@ -107,6 +114,8 @@ const ProductDesk = () => {
                   description={el.description}
                   rating={el.rating}
                   fake={el.fake ? el.fake : false}
+                  openAlert={openAlert}
+                  setOpenAlert={setOpenAlert}
                 />
               </Grid>
             );

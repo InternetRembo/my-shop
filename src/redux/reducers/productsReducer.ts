@@ -5,7 +5,6 @@ import {
   ProductActionTypes,
   productStateTypes,
   setFilterParams,
-  setNewCurrentPage,
   setProductListAction,
   setSearchQuery,
   setSelectedProductId,
@@ -39,7 +38,6 @@ let initialState: productStateTypes = {
   products: [defaultProductData],
   selectedProductId: 0,
   selectedProductData: defaultProductData,
-  currentPage: 1,
   totalProductCount: 0,
   filterParams: {
     category: "all",
@@ -64,9 +62,6 @@ export const productReducer = (
     }
     case productActionTypes.GET_PRODUCT_DATA: {
       return { ...state, selectedProductData: action.payload };
-    }
-    case productActionTypes.SET_CURRENT_PAGE: {
-      return { ...state, currentPage: action.payload };
     }
     case productActionTypes.SET_FILTER_PARAMS: {
       return { ...state, filterParams: action.payload };
@@ -97,10 +92,7 @@ export const getProductsAC = (payload: product[]): setProductListAction => ({
   payload,
   type: productActionTypes.GET_PRODUCTS,
 });
-export const setCurrentPageAC = (payload: number): setNewCurrentPage => ({
-  payload,
-  type: productActionTypes.SET_CURRENT_PAGE,
-});
+
 export const setFilterParamsAC = (
   payload: FilterFormValues
 ): setFilterParams => ({

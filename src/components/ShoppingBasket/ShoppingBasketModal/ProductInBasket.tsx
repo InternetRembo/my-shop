@@ -5,6 +5,8 @@ import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import AddIcon from "@mui/icons-material/Add";
 import DangerousIcon from "@mui/icons-material/Dangerous";
 import { createStyles, makeStyles } from "@mui/styles";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { removeProductFromTheBasketAC } from "../../../redux/reducers/shoppingReducer";
 
 const useStyles = makeStyles((myTheme: Theme) =>
   createStyles({
@@ -24,13 +26,39 @@ const useStyles = makeStyles((myTheme: Theme) =>
   })
 );
 
-const ProductInBasket = () => {
+type ProductInBasketProps = {
+  title: string;
+  image: string;
+  price: number;
+  id: number;
+};
+
+const ProductInBasket: React.FC<ProductInBasketProps> = ({
+  image,
+  title,
+  price,
+  id,
+}) => {
   const classes = useStyles();
+
+  const dispatch = useAppDispatch();
+
+  const productsInBasket = useAppSelector(
+    (state) => state.shoppingReducer.productsInBasket
+  );
+
+  const removeProductHandler = () => {
+    dispatch(
+      removeProductFromTheBasketAC(
+        productsInBasket.filter((el) => el.id !== id)
+      )
+    );
+  };
 
   return (
     <Box className={classes.container}>
       <Box className={classes.removeIcon}>
-        <IconButton>
+        <IconButton onClick={() => removeProductHandler()}>
           <DangerousIcon color={"error"} fontSize={"medium"} />
         </IconButton>
       </Box>
@@ -44,30 +72,35 @@ const ProductInBasket = () => {
       >
         <Image
           fit={"contain"}
-          src={
-            "https://afisha.bigmir.net/i/54/53/42/7/5453427/gallery/9af66975d230fed429e27acdcdc5518d-quality_75Xresize_1Xallow_enlarge_0Xw_800Xh_0.jpg"
-          }
+          src={`${image}`}
           showLoading={true}
           width={"120px"}
           height={"120px"}
         />
-        <Typography variant={"h5"}> Product title </Typography>
+        <Typography width={"300px"} variant={"h5"}>
+          {title}
+        </Typography>
 
-        <Stack
-          sx={{ border: "1px solid pink" }}
-          alignItems={"center"}
-          spacing={1}
-          direction={"row"}
-        >
-          <IconButton>
-            <HorizontalRuleIcon />
-          </IconButton>
-          <Typography variant={"h5"}>4</Typography>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </Stack>
-        <Typography variant={"h5"}> 235$ </Typography>
+        <Box width={"120px"}>
+          <Stack
+            width={"110px"}
+            sx={{ border: "1px solid pink" }}
+            alignItems={"center"}
+            spacing={1}
+            direction={"row"}
+          >
+            <IconButton>
+              <HorizontalRuleIcon />
+            </IconButton>
+            <Typography variant={"h5"}>4</Typography>
+            <IconButton>
+              <AddIcon />
+            </IconButton>
+          </Stack>
+        </Box>
+        <Box width={"150px"}>
+          <Typography variant={"h5"}>{price}$</Typography>
+        </Box>
       </Stack>
     </Box>
   );
